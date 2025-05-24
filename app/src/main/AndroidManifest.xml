@@ -1,0 +1,35 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.gestiontiramisu">
+
+    <application
+        android:allowBackup="true"
+        android:label="GestionTiramisu"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.GestionTiramisu">
+
+        <!-- 1. Page de pourcentages (page de démarrage) -->
+        <activity
+            android:name=".PourcentagesActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+
+        <!-- 2. Page des commandes habituelles -->
+        <activity
+            android:name=".CommandesHabituellesActivity"
+            android:exported="false"/>
+
+        <!-- 3. Page des commandes spéciales -->
+        <activity
+            android:name=".CommandesSpecialesActivity"
+            android:exported="false"/>
+
+        <!-- 4. Page de résumé -->
+        <activity
+            android:name=".ResumeCommandesActivity"
+            android:exported="false"/>
+    </application>
+</manifest>

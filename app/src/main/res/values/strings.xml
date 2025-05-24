@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Nom de l'application -->
+    <string name="app_name">Gestion Tiramisu</string>
+
+    <!-- Écran de conversion des tournées -->
+    <string name="title_conversion_tournees">Conversion des tournées</string>
+    <string name="tournees_calculees">Nombre de tournées nécessaires : %d</string>
+    <string name="enter_tournees">Entrez le nombre de tournées</string>
+    <string name="validate_tournees">Nombre de tournées validé : %d</string>
+    <string name="error_tournees">Veuillez entrer un nombre de tournées valide.</string>
+    <string name="enter_tiramisu_per_tournee">Tiramisus par tournée (175 par défaut)</string>
+    <string name="set_default">Définir par défaut</string>
+
+    <!-- Boutons -->
+    <string name="validate">Valider</string>
+    <string name="modify">Modifier</string>
+    <string name="add">Ajouter</string>
+    <string name="delete">Supprimer</string>
+
+    <!-- Écran de saisie du stock -->
+    <string name="title_saisie_stock">Saisie du stock</string>
+    <string name="enter_stock">Entrez le stock disponible</string>
+    <string name="error_stock">Stock invalide. Veuillez entrer une valeur correcte.</string>
+    <string name="stock_non_recu">Erreur : Stock non reçu.</string>
+    <string name="stock_restant">Stock restant : %d</string>
+    <string name="stock_restant_placeholder">%s → %s</string>
+
+    <!-- Pourcentages -->
+    <string name="enter_pourcentage">Entrez un pourcentage (ex : 20)</string>
+    <string name="pourcentage_du_gout">Pourcentage du goût</string>
+    <string name="nom_du_gout">Nom du goût</string>
+    <string name="modifier_gout">Modifier le goût</string>
+    <string name="supprimer_gout">Supprimer le goût</string>
+    <string name="ajouter_gout">Ajouter un goût</string>
+    <string name="valider_pourcentages">Valider les pourcentages</string>
+    <string name="titre_repartition">Répartition des goûts (%)</string>
+
+    <!-- Commandes habituelles -->
+    <string name="title_commandes_habituelles">Commandes Habituelles</string>
+    <string name="no_orders">Aucune commande habituelle enregistrée.</string>
+    <string name="modify_order">Modifier Commande</string>
+    <string name="confirm_orders">Commandes validées avec succès !</string>
+
+    <!-- Commandes spéciales -->
+    <string name="title_commandes_speciales">Commandes Spéciales</string>
+    <string name="enter_quantite">Entrez la quantité</string>
+    <string name="add_gout">Ajouter un goût</string>
+
+</resources>

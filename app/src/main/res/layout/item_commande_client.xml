@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="12dp"
+    android:background="@android:color/white">
+
+    <!-- Ligne nom client + bouton supprimer -->
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:layout_marginBottom="8dp">
+        <EditText
+            android:id="@+id/editNomClient"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:hint="Nom du client"
+            android:textColor="@android:color/black" />
+        <Button
+            android:id="@+id/btnSupprimerCommande"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="X"
+            android:backgroundTint="@android:color/holo_red_dark"
+            android:textColor="@android:color/white"
+            android:layout_marginStart="8dp" />
+    </LinearLayout>
+
+    <!-- Champ pour la quantité totale -->
+    <EditText
+        android:id="@+id/editQuantiteTotale"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Quantité totale"
+        android:inputType="number"
+        android:textColor="@android:color/black"
+        android:layout_marginBottom="8dp" />
+
+    <!-- Champ pour exclure certains goûts -->
+    <EditText
+        android:id="@+id/editExclusions"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Exclure certains goûts (séparés par des virgules)"
+        android:textColor="@android:color/black"
+        android:layout_marginBottom="8dp" />
+
+    <!-- Conteneur des goûts -->
+    <LinearLayout
+        android:id="@+id/layoutGoutsClient"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginBottom="8dp" />
+
+    <!-- Bouton pour ajouter un goût pour ce client -->
+    <Button
+        android:id="@+id/btnAjouterGoutClient"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Ajouter un goût"
+        android:backgroundTint="@android:color/holo_green_dark"
+        android:textColor="@android:color/white"
+        android:textAllCaps="false"
+        android:visibility="gone" />
+
+</LinearLayout>
