@@ -5,24 +5,19 @@ import java.util.List;
 
 public class SousCommande {
 
-    private int typeIndex;  // Indice du type de contenant (ex: Spinner position)
+    private String typeNom;  // Nom du type choisi ou tapé par l'utilisateur
     private List<GoutQuantite> gouts;
 
     public SousCommande() {
         this.gouts = new ArrayList<>();
     }
 
-    public SousCommande(int typeIndex, List<GoutQuantite> gouts) {
-        this.typeIndex = typeIndex;
-        this.gouts = gouts;
+    public String getTypeNom() {
+        return typeNom;
     }
 
-    public int getTypeIndex() {
-        return typeIndex;
-    }
-
-    public void setTypeIndex(int typeIndex) {
-        this.typeIndex = typeIndex;
+    public void setTypeNom(String typeNom) {
+        this.typeNom = typeNom;
     }
 
     public List<GoutQuantite> getGouts() {

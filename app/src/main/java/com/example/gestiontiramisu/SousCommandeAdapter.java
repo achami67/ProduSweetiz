@@ -1,63 +1,55 @@
 package com.example.gestiontiramisu;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.Spinner;
-import android.widget.LinearLayout;
+import android.widget.*;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
 import java.util.List;
 
 public class SousCommandeAdapter extends RecyclerView.Adapter<SousCommandeAdapter.ViewHolder> {
 
     private final List<SousCommande> sousCommandes;
+    private final Context context;
 
-    public SousCommandeAdapter(List<SousCommande> sousCommandes) {
+    public SousCommandeAdapter(Context context, List<SousCommande> sousCommandes) {
+        this.context = context;
         this.sousCommandes = sousCommandes;
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View vue = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_sous_commande, parent, false);
-        return new ViewHolder(vue);
+        View view = LayoutInflater.from(context).inflate(R.layout.item_sous_commande, parent, false);
+        return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        SousCommande sc = sousCommandes.get(position);
-        holder.spinnerTypeContenant.setSelection(sc.getTypeIndex());
+        SousCommande commande = sousCommandes.get(position);
 
-        holder.layoutGouts.removeAllViews();
-        for (GoutQuantite gq : sc.getGouts()) {
-            View goutView = LayoutInflater.from(holder.itemView.getContext())
-                    .inflate(R.layout.item_gout_special, holder.layoutGouts, false);
+        // Affiche le nom du type dans le Spinner
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(context,
+                android.R.layout.simple_spinner_item,
+                List.of("Pot", "Boîte", "Verrine", commande.getTypeNom()));
 
-            EditText editNom = goutView.findViewById(R.id.editNomGout);
-            EditText editQuantite = goutView.findViewById(R.id.editQuantiteGout);
-            Button btnSupprimer = goutView.findViewById(R.id.btnSupprimerGout);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        holder.spinner.setAdapter(adapter);
 
-            editNom.setText(gq.getNom());
-            editQuantite.setText(String.valueOf(gq.getQuantite()));
-
-            btnSupprimer.setOnClickListener(v -> holder.layoutGouts.removeView(goutView));
-            holder.layoutGouts.addView(goutView);
+        int index = adapter.getPosition(commande.getTypeNom());
+        if (index != -1) {
+            holder.spinner.setSelection(index);
         }
 
-        holder.btnAjouterGout.setOnClickListener(v -> {
-            View nouveauGout = LayoutInflater.from(holder.itemView.getContext())
-                    .inflate(R.layout.item_gout_special, holder.layoutGouts, false);
-            Button btn = nouveauGout.findViewById(R.id.btnSupprimerGout);
-            btn.setOnClickListener(x -> holder.layoutGouts.removeView(nouveauGout));
-            holder.layoutGouts.addView(nouveauGout);
-        });
-
-        holder.btnSupprimerType.setOnClickListener(v -> {
+        // Gérer les goûts (optionnel à compléter)
+        holder.btnSupprimer.setOnClickListener(v -> {
             sousCommandes.remove(position);
             notifyItemRemoved(position);
+            notifyItemRangeChanged(position, sousCommandes.size());
         });
     }
 
@@ -67,16 +59,15 @@ public class SousCommandeAdapter extends RecyclerView.Adapter<SousCommandeAdapte
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        Spinner spinnerTypeContenant;
+        Spinner spinner;
         LinearLayout layoutGouts;
-        Button btnAjouterGout, btnSupprimerType;
+        Button btnSupprimer;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            spinnerTypeContenant = itemView.findViewById(R.id.spinnerTypeContenant);
+            spinner = itemView.findViewById(R.id.spinnerTypeContenant);
             layoutGouts = itemView.findViewById(R.id.layoutGouts);
-            btnAjouterGout = itemView.findViewById(R.id.btnAjouterGout);
-            btnSupprimerType = itemView.findViewById(R.id.btnSupprimerType);
+            btnSupprimer = itemView.findViewById(R.id.btnSupprimerType);
         }
     }
 }

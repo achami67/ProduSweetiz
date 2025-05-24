@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:orientation="vertical"
     android:padding="12dp"
-    android:background="@android:color/white">
+    android:background="@android:color/white"
+    android:layout_marginBottom="16dp">
 
-    <!-- Ligne nom client + bouton supprimer -->
+    <!-- Nom du client et bouton supprimer -->
     <LinearLayout
-        android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:orientation="horizontal"
         android:gravity="center_vertical"
         android:layout_marginBottom="8dp">
 
@@ -20,33 +21,35 @@
             android:layout_weight="1"
             android:layout_height="wrap_content"
             android:hint="Client"
-            android:textColor="@android:color/black" />
+            android:inputType="textPersonName"
+            android:padding="8dp"
+            android:background="@android:drawable/edit_text" />
 
         <Button
             android:id="@+id/buttonSupprimerClient"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
             android:text="X"
-            android:backgroundTint="@android:color/holo_red_dark"
             android:textColor="@android:color/white"
+            android:backgroundTint="@android:color/holo_red_dark"
             android:layout_marginStart="8dp" />
     </LinearLayout>
 
-    <!-- Conteneur des sous-commandes -->
+    <!-- Conteneur pour les types de contenants -->
     <LinearLayout
         android:id="@+id/layoutGouts"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_marginBottom="8dp" />
+        android:orientation="vertical" />
 
-    <!-- Bouton ajouter un type de contenant (SousCommande) -->
+    <!-- Bouton pour ajouter un type -->
     <Button
-        android:id="@+id/buttonAjouterGoutClient"
+        android:id="@+id/buttonAjouterType"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Ajouter un type"
-        android:backgroundTint="@android:color/holo_green_dark"
+        android:textAllCaps="false"
         android:textColor="@android:color/white"
-        android:textAllCaps="false" />
+        android:backgroundTint="@android:color/holo_green_dark"
+        android:layout_marginTop="8dp" />
 </LinearLayout>

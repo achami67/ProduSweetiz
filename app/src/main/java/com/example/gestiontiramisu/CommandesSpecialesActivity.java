@@ -6,9 +6,12 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.*;
+
 import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,14 +33,10 @@ public class CommandesSpecialesActivity extends AppCompatActivity {
         chargerCommandesEnregistrees();
 
         buttonAjouterClient.setOnClickListener(v -> ajouterBlocClient(null));
-
         buttonValiderCommandesSpeciales.setOnClickListener(v -> {
             enregistrerCommandes();
             Toast.makeText(this, "Commandes spéciales enregistrées", Toast.LENGTH_SHORT).show();
-
-            // Lancer la page résumé
-            Intent intent = new Intent(this, ResumeCommandesActivity.class);
-            startActivity(intent);
+            startActivity(new Intent(this, ResumeCommandesActivity.class));
         });
     }
 
@@ -49,10 +48,10 @@ public class CommandesSpecialesActivity extends AppCompatActivity {
         if (nomInitial != null) editNomClient.setText(nomInitial);
 
         LinearLayout layoutGouts = blocClient.findViewById(R.id.layoutGouts);
-        Button btnAjouterType = blocClient.findViewById(R.id.buttonAjouterGoutClient);
-        btnAjouterType.setOnClickListener(v -> ajouterBlocSousCommande(layoutGouts, null));
-
+        Button btnAjouterType = blocClient.findViewById(R.id.buttonAjouterType);
         Button btnSupprimer = blocClient.findViewById(R.id.buttonSupprimerClient);
+
+        btnAjouterType.setOnClickListener(v -> ajouterBlocSousCommande(layoutGouts, null));
         btnSupprimer.setOnClickListener(v -> layoutClients.removeView(blocClient));
     }
 
@@ -61,12 +60,38 @@ public class CommandesSpecialesActivity extends AppCompatActivity {
         parent.addView(blocType);
 
         Spinner spinner = blocType.findViewById(R.id.spinnerTypeContenant);
+        EditText editNouveauType = blocType.findViewById(R.id.editNouveauType);
         LinearLayout layoutGoutsInterne = blocType.findViewById(R.id.layoutGouts);
         Button btnAjouterGout = blocType.findViewById(R.id.btnAjouterGout);
         Button btnSupprType = blocType.findViewById(R.id.btnSupprimerType);
 
+        List<String> typesDisponibles = new ArrayList<>();
+        typesDisponibles.add("Pot");
+        typesDisponibles.add("Boîte");
+        typesDisponibles.add("Verrine");
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, typesDisponibles);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
+
+        editNouveauType.setOnEditorActionListener((v, actionId, event) -> {
+            String nouveauType = editNouveauType.getText().toString().trim();
+            if (!nouveauType.isEmpty() && !typesDisponibles.contains(nouveauType)) {
+                typesDisponibles.add(nouveauType);
+                adapter.notifyDataSetChanged();
+                spinner.setSelection(typesDisponibles.indexOf(nouveauType));
+                editNouveauType.setText("");
+            }
+            return true;
+        });
+
         if (commandeExistante != null) {
-            spinner.setSelection(commandeExistante.getTypeIndex());
+            String type = commandeExistante.getTypeNom();
+            if (type != null && !typesDisponibles.contains(type)) {
+                typesDisponibles.add(type);
+                adapter.notifyDataSetChanged();
+            }
+            spinner.setSelection(typesDisponibles.indexOf(type));
             for (GoutQuantite gq : commandeExistante.getGouts()) {
                 ajouterGout(layoutGoutsInterne, gq.getNom(), gq.getQuantite());
             }
@@ -85,6 +110,7 @@ public class CommandesSpecialesActivity extends AppCompatActivity {
         editNom.setText(nom);
         editQuantite.setText(String.valueOf(quantite));
         btnSupprGout.setOnClickListener(xx -> parent.removeView(ligneGout));
+
         parent.addView(ligneGout);
     }
 
@@ -104,13 +130,12 @@ public class CommandesSpecialesActivity extends AppCompatActivity {
                 LinearLayout layoutGouts = blocType.findViewById(R.id.layoutGouts);
 
                 SousCommande sousCommande = new SousCommande();
-                sousCommande.setTypeIndex(spinner.getSelectedItemPosition());
+                sousCommande.setTypeNom(spinner.getSelectedItem().toString());
 
                 for (int k = 0; k < layoutGouts.getChildCount(); k++) {
                     View goutView = layoutGouts.getChildAt(k);
                     EditText nom = goutView.findViewById(R.id.editNomGout);
                     EditText qte = goutView.findViewById(R.id.editQuantiteGout);
-
                     if (!nom.getText().toString().isEmpty() && !qte.getText().toString().isEmpty()) {
                         try {
                             int quantite = Integer.parseInt(qte.getText().toString());
@@ -118,6 +143,7 @@ public class CommandesSpecialesActivity extends AppCompatActivity {
                         } catch (NumberFormatException ignored) {}
                     }
                 }
+
                 client.getSousCommandes().add(sousCommande);
             }
 
@@ -131,7 +157,6 @@ public class CommandesSpecialesActivity extends AppCompatActivity {
     private void chargerCommandesEnregistrees() {
         SharedPreferences prefs = getSharedPreferences("prefs", MODE_PRIVATE);
         String json = prefs.getString("commandes_speciales", null);
-
         if (json != null) {
             List<CommandeSpecialeClient> anciens = gson.fromJson(json, new TypeToken<List<CommandeSpecialeClient>>() {}.getType());
             for (CommandeSpecialeClient c : anciens) {
@@ -149,7 +174,7 @@ public class CommandesSpecialesActivity extends AppCompatActivity {
                 Button btnSupprimer = blocClient.findViewById(R.id.buttonSupprimerClient);
                 btnSupprimer.setOnClickListener(v -> layoutClients.removeView(blocClient));
 
-                Button btnAjouterType = blocClient.findViewById(R.id.buttonAjouterGoutClient);
+                Button btnAjouterType = blocClient.findViewById(R.id.buttonAjouterType);
                 btnAjouterType.setOnClickListener(v -> ajouterBlocSousCommande(layoutGouts, null));
             }
         }

@@ -3,37 +3,47 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="8dp"
+    android:padding="12dp"
     android:background="@android:color/darker_gray"
-    android:layout_marginVertical="8dp">
+    android:layout_marginVertical="8dp"
+    android:layout_marginHorizontal="4dp">
 
+    <!-- Champ pour saisir un nouveau type -->
+    <EditText
+        android:id="@+id/editNouveauType"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Ajouter un type personnalisé"
+        android:inputType="text"
+        android:layout_marginBottom="8dp" />
+
+    <!-- Spinner avec les types disponibles -->
     <Spinner
         android:id="@+id/spinnerTypeContenant"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp" />
 
+    <!-- Zone des goûts -->
     <LinearLayout
         android:id="@+id/layoutGouts"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_marginTop="8dp" />
+        android:orientation="vertical" />
 
+    <!-- Bouton ajouter goût -->
     <Button
         android:id="@+id/btnAjouterGout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Ajouter goût"
-        android:backgroundTint="@color/greenButton"
-        android:textColor="@android:color/white"
         android:layout_marginTop="8dp" />
 
+    <!-- Bouton supprimer type -->
     <Button
         android:id="@+id/btnSupprimerType"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Supprimer type"
-        android:backgroundTint="@android:color/holo_red_dark"
-        android:textColor="@android:color/white"
         android:layout_marginTop="4dp" />
 </LinearLayout>
